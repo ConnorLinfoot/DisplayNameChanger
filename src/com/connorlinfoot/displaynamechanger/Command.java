@@ -1,5 +1,6 @@
 package com.connorlinfoot.displaynamechanger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,20 +24,36 @@ public class Command implements CommandExecutor {
             return false;
         }
 
-        if( args.length != 1 ) {
-            p.sendMessage(ChatColor.RED + "Usage: /cdn <displayname>");
+        if( args.length == 0 ) {
+            p.sendMessage(ChatColor.RED + "Usage: /cdn <displayname> OR /cdn <player> <displayname>");
             return false;
         }
 
-        if( args[0].length() > 16 ){
-            p.sendMessage(ChatColor.RED + "Can not be more than 16 characters");
-            return false;
+        if( args.length == 1 ) {
+            if (args[0].length() > 16) {
+                p.sendMessage(ChatColor.RED + "Can not be more than 16 characters");
+                return false;
+            }
+
+
+            names.put(p.getName(), args[0]);
+            TagAPI.refreshPlayer(p);
+
+            p.sendMessage("Your display name has been changed to " + args[0]);
+        } else if( args.length == 2 ){
+            if(Bukkit.getPlayer(args[0]) == null ){
+                p.sendMessage(ChatColor.RED + "Player not found");
+                return false;
+            }
+
+            if (args[1].length() > 16) {
+                p.sendMessage(ChatColor.RED + "Can not be more than 16 characters");
+                return false;
+            }
+
+            names.put(Bukkit.getPlayer(args[0]).getName(), args[1]);
+            TagAPI.refreshPlayer(Bukkit.getPlayer(args[0]));
         }
-
-        names.put(p.getName(),args[0]);
-        TagAPI.refreshPlayer(p);
-
-        p.sendMessage("Your display name has been changed to " + args[0]);
 
         return false;
     }
