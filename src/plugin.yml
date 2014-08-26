@@ -1,0 +1,13 @@
+name: DisplayNameChanger
+description: DisplayNameChanger
+main: com.connorlinfoot.displaynamechanger.Main
+version: 1.0
+author: ConnorLinfoot
+website: http://connorlinfoot.com
+depends: [TagAPI]
+commands:
+  cdn:
+    description: Change your display name
+permissions:
+  displayname.change:
+    default: op
