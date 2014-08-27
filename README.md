@@ -4,7 +4,7 @@ This plugin allows you to easily change the display name (Name Tag) above your h
 
 ###Commands:
 
-**/cdn** - Usage: /cdn <name> (Will change your Display Name) OR /cdn <player> <name> (Will change another players display name) 
+**/cdn** - Usage: /cdn \<name\> (Will change your Display Name) OR /cdn \<player\> \<name\> (Will change another players display name) 
 
 ###Permissions:
 
