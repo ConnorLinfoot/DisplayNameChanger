@@ -1,6 +1,7 @@
 DisplayNameChanger
 ==================
 This plugin allows you to easily change the display name (Name Tag) above your head of any player including yourself. These only work for version 2.0+
+
 For versions below 2.0 check the Bukkit page here: http://dev.bukkit.org/bukkit-plugins/dnc/
 
 ###Commands:
