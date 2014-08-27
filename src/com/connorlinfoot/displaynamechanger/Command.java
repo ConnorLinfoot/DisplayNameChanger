@@ -15,26 +15,21 @@ public class Command implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String s, String[] args) {
-        if( !(sender instanceof Player) )
-            return false;
-
-        Player p = (Player) sender;
-        if( !p.hasPermission("displayname.change") ){
-            p.sendMessage(ChatColor.RED + "You do not have permission to use that");
-            return false;
-        }
-
         if( args.length == 0 ) {
-            p.sendMessage(ChatColor.RED + "Usage: /cdn <displayname> OR /cdn <player> <displayname>");
+            sender.sendMessage(ChatColor.RED + "Usage: /cdn <displayname> OR /cdn <player> <displayname>");
             return false;
-        }
-
-        if( args.length == 1 ) {
+        } else if( args.length == 1 ) {
+            if( !(sender instanceof Player) )
+                return false;
+            Player p = (Player) sender;
+            if( !p.hasPermission("displayname.change") ){
+                p.sendMessage(ChatColor.RED + "You do not have permission to use that");
+                return false;
+            }
             if (args[0].length() > 16) {
                 p.sendMessage(ChatColor.RED + "Can not be more than 16 characters");
                 return false;
             }
-
 
             names.put(p.getName(), args[0]);
             TagAPI.refreshPlayer(p);
@@ -42,12 +37,12 @@ public class Command implements CommandExecutor {
             p.sendMessage("Your display name has been changed to " + args[0]);
         } else if( args.length == 2 ){
             if(Bukkit.getPlayer(args[0]) == null ){
-                p.sendMessage(ChatColor.RED + "Player not found");
+                sender.sendMessage(ChatColor.RED + "Player not found");
                 return false;
             }
 
             if (args[1].length() > 16) {
-                p.sendMessage(ChatColor.RED + "Can not be more than 16 characters");
+                sender.sendMessage(ChatColor.RED + "Can not be more than 16 characters");
                 return false;
             }
 
@@ -57,5 +52,4 @@ public class Command implements CommandExecutor {
 
         return false;
     }
-
 }
