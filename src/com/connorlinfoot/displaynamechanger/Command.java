@@ -16,9 +16,22 @@ public class Command implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String s, String[] args) {
         if( args.length == 0 ) {
-            sender.sendMessage(ChatColor.RED + "Usage: /cdn <displayname> OR /cdn <player> <displayname>");
+            sender.sendMessage(ChatColor.RED + "Usage: /cdn <displayname> OR /cdn <player> <displayname> OR /cdn clear");
             return false;
         } else if( args.length == 1 ) {
+            if( args[0].equalsIgnoreCase("clear") ){
+                names.clear();
+                if( Main.getInstance().getConfig().getBoolean("Remember Names") && Main.getInstance().getConfig().getConfigurationSection("Players") != null ){
+                    Main.getInstance().getConfig().set("Players",null);
+                    Main.getInstance().saveConfig();
+                }
+                for( Player p : Bukkit.getOnlinePlayers() ){
+                    TagAPI.refreshPlayer(p);
+                }
+                sender.sendMessage("Display name list has been cleared");
+                return false;
+            }
+
             if( !(sender instanceof Player) )
                 return false;
             Player p = (Player) sender;
@@ -35,7 +48,7 @@ public class Command implements CommandExecutor {
             if( Main.getInstance().getConfig().getBoolean("Change Chat Display Name") ) p.setDisplayName(ChatColor.translateAlternateColorCodes('&',args[0]));
             TagAPI.refreshPlayer(p);
 
-            p.sendMessage("Your display name has been changed to " + args[0]);
+            p.sendMessage("Your display name has been changed to " +  ChatColor.translateAlternateColorCodes('&',args[0]));
         } else if( args.length == 2 ){
             if( sender instanceof Player ){
                 Player p = (Player) sender;
@@ -63,6 +76,8 @@ public class Command implements CommandExecutor {
             names.put(Bukkit.getPlayer(args[0]).getName(), ChatColor.translateAlternateColorCodes('&',args[1]));
             if( Main.getInstance().getConfig().getBoolean("Change Chat Display Name") ) Bukkit.getPlayer(args[0]).setDisplayName(ChatColor.translateAlternateColorCodes('&',args[1]));
             TagAPI.refreshPlayer(Bukkit.getPlayer(args[0]));
+
+            sender.sendMessage("Display name has been updated");
         }
 
         return false;
