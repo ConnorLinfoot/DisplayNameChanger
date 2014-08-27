@@ -36,6 +36,14 @@ public class Command implements CommandExecutor {
 
             p.sendMessage("Your display name has been changed to " + args[0]);
         } else if( args.length == 2 ){
+            if( sender instanceof Player ){
+                Player p = (Player) sender;
+                if( !p.hasPermission("displayname.change") ){
+                    p.sendMessage(ChatColor.RED + "You do not have permission to use that");
+                    return false;
+                }
+            }
+
             if(Bukkit.getPlayer(args[0]) == null ){
                 sender.sendMessage(ChatColor.RED + "Player not found");
                 return false;
