@@ -1,3 +1,5 @@
-# No config is required for this plugin
-# This plugin does require TagAPI however
+# This plugin does require TagAPI
 # TagAPI can be found here http://dev.bukkit.org/bukkit-plugins/tag/
+
+Change Chat Display Name: false
+# Remember Names: false (COMING SOON)

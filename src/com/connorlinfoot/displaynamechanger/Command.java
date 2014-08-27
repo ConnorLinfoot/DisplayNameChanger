@@ -32,6 +32,7 @@ public class Command implements CommandExecutor {
             }
 
             names.put(p.getName(), ChatColor.translateAlternateColorCodes('&',args[0]));
+            if( Main.getInstance().getConfig().getBoolean("Change Chat Display Name") ) p.setDisplayName(ChatColor.translateAlternateColorCodes('&',args[0]));
             TagAPI.refreshPlayer(p);
 
             p.sendMessage("Your display name has been changed to " + args[0]);
@@ -60,6 +61,7 @@ public class Command implements CommandExecutor {
             }
 
             names.put(Bukkit.getPlayer(args[0]).getName(), ChatColor.translateAlternateColorCodes('&',args[1]));
+            if( Main.getInstance().getConfig().getBoolean("Change Chat Display Name") ) Bukkit.getPlayer(args[0]).setDisplayName(ChatColor.translateAlternateColorCodes('&',args[1]));
             TagAPI.refreshPlayer(Bukkit.getPlayer(args[0]));
         }
 
