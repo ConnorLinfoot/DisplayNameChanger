@@ -11,14 +11,20 @@ For versions below 2.0 check the Bukkit page here: http://dev.bukkit.org/bukkit-
 ###Permissions:
 
 **displayname.change.\*** - Default: OP, Allows you to use the command and all children of it
+
 **displayname.change.self** - Default: OP, Allows you to change your display name
+
 **displayname.change.others** - Default: OP, Allows you to change other players display name
+
 **displayname.change.ignore** - Default: False, Allows you to protect yourself having your display name changed
+
 
 ###Config:
 
 **Change Chat Display Name** - Default: false, If enabled will change your player display name in chat also, as long as no other plugin is overwriting it
+
 **Remember Names** - Default: false, If enabled will remember names even after server reloads or reboots
+
 
 ###TagAPI
 
