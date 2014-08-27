@@ -19,7 +19,7 @@ public class Main extends JavaPlugin {
         ConsoleCommandSender console = server.getConsoleSender();
 
         console.sendMessage(ChatColor.GREEN + "======== DisplayNameChanger ========");
-        console.sendMessage(ChatColor.GREEN + "========== VERSION: 1.1.2 ==========");
+        console.sendMessage(ChatColor.GREEN + "=========== VERSION: 2.0 ===========");
         console.sendMessage(ChatColor.GREEN + "======== BY CONNOR LINFOOT! ========");
 
         Bukkit.getPluginManager().registerEvents(new Listener(),this);

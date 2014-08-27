@@ -22,23 +22,23 @@ public class Command implements CommandExecutor {
             if( !(sender instanceof Player) )
                 return false;
             Player p = (Player) sender;
-            if( !p.hasPermission("displayname.change") ){
+            if( !p.hasPermission("displayname.change.self") ){
                 p.sendMessage(ChatColor.RED + "You do not have permission to use that");
                 return false;
             }
             if (args[0].length() > 16) {
-                p.sendMessage(ChatColor.RED + "Can not be more than 16 characters");
+                sender.sendMessage(ChatColor.RED + "Display name can not be more than 16 characters");
                 return false;
             }
 
-            names.put(p.getName(), args[0]);
+            names.put(p.getName(), ChatColor.translateAlternateColorCodes('&',args[0]));
             TagAPI.refreshPlayer(p);
 
             p.sendMessage("Your display name has been changed to " + args[0]);
         } else if( args.length == 2 ){
             if( sender instanceof Player ){
                 Player p = (Player) sender;
-                if( !p.hasPermission("displayname.change") ){
+                if( !p.hasPermission("displayname.change.others") ){
                     p.sendMessage(ChatColor.RED + "You do not have permission to use that");
                     return false;
                 }
@@ -49,12 +49,17 @@ public class Command implements CommandExecutor {
                 return false;
             }
 
-            if (args[1].length() > 16) {
-                sender.sendMessage(ChatColor.RED + "Can not be more than 16 characters");
+            if(Bukkit.getPlayer(args[0]).hasPermission("displayname.change.ignore")){
+                sender.sendMessage(ChatColor.RED + "You can not change that players display name");
                 return false;
             }
 
-            names.put(Bukkit.getPlayer(args[0]).getName(), args[1]);
+            if (args[1].length() > 16) {
+                sender.sendMessage(ChatColor.RED + "Display name can not be more than 16 characters");
+                return false;
+            }
+
+            names.put(Bukkit.getPlayer(args[0]).getName(), ChatColor.translateAlternateColorCodes('&',args[1]));
             TagAPI.refreshPlayer(Bukkit.getPlayer(args[0]));
         }
 
